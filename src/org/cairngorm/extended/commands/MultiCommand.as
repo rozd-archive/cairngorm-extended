@@ -22,7 +22,7 @@ package org.cairngorm.extended.commands
 			switch (e.mode)
 			{
 				case MultiCommandMode.SEQUENCE :
-					
+				{	
 					var startEvent:CairngormExtendedEvent = 
 						CairngormExtendedEvent(e.events.shift());
 					
@@ -33,17 +33,16 @@ package org.cairngorm.extended.commands
 					}
 					
 					startEvent.dispatch();
-					
+				}	
 				break;
-				
 				case MultiCommandMode.PARALLEL :
-					
+				{
 					var n:int = e.events.length;
 					for (var i:int; i<n; i++)
 					{
-						CairngormExtendedEvent(e.events[i]).dispatch();
+						CairngormEvent(e.events[i]).dispatch();
 					}
-					
+				}	
 				break;
 			}
 		}

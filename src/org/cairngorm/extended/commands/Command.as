@@ -7,7 +7,7 @@ package org.cairngorm.extended.commands
 
 	public class Command extends SequenceCommand
 	{
-		protected var event:CairngormExtendedEvent;
+		private var event:CairngormExtendedEvent;
 		
 		public function Command()
 		{
@@ -16,21 +16,28 @@ package org.cairngorm.extended.commands
 		
 		override public function execute(event:CairngormEvent):void
 		{
-			var e:CairngormExtendedEvent = CairngormExtendedEvent(event);
-			
-			if (!e.events || e.events.length == 0)
-				return;
-			
-			var nextEvent:CairngormExtendedEvent = 
-					CairngormExtendedEvent(e.events.shift());
-			
-			if (e.events.length > 0)
+			this.event = CairngormExtendedEvent(event);
+		}
+		
+		override public function executeNextCommand():void
+		{
+			if (this.event.events && this.event.events.length > 0)
 			{
-				nextEvent.events = nextEvent.events || [];
-				nextEvent.events = nextEvent.events.concat(e.events);
+				var nextEvent:CairngormExtendedEvent = 
+					this.nextEvent ? 
+					CairngormExtendedEvent(this.nextEvent) : 
+					CairngormExtendedEvent(this.event.events.shift());
+				
+				if (this.event.events.length > 0)
+				{
+					nextEvent.events = nextEvent.events || [];
+					nextEvent.events = nextEvent.events.concat(this.event.events);
+				}
+				
+				this.nextEvent = nextEvent;
 			}
 			
-			this.nextEvent = nextEvent;
+			super.executeNextCommand();
 		}
 	}
 }
