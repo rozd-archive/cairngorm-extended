@@ -1,25 +1,21 @@
 package org.cairngorm.extended.control
 {
-	import com.adobe.cairngorm.control.CairngormEvent;
-	
 	import flash.events.Event;
 	
 	import org.cairngorm.extended.commands.MultiCommandMode;
 
-	public class MultiCommandEvent extends CairngormEvent
+	public class MultiCommandEvent extends CairngormExtendedEvent
 	{
 		public static const MULTICOMMAND_NAME:String	= "executeMultiCommand";
 		
 		public var mode:int;
-		public var events:Array;
 		
 		public function MultiCommandEvent(events:Array, 
 										  mode:int=MultiCommandMode.SEQUENCE)
 		{
-			super(MULTICOMMAND_NAME);
+			super(MULTICOMMAND_NAME, events);
 			
 			this.mode = mode;
-			this.events = events;
 		}
 		
 		override public function clone():Event
