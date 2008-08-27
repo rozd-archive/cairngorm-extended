@@ -9,11 +9,16 @@ package org.cairngorm.extended.commands
 
 	public class CallbackCommand extends Command implements IResponder
 	{
-		protected var callback:Callback;
+		private var _callback:Callback;
 		
 		public function CallbackCommand()
 		{
 			super();
+		}
+		
+		public function get callback():Callback
+		{
+			return this._callback;
 		}
 		
 		override public function execute(event:CairngormEvent):void
@@ -22,7 +27,7 @@ package org.cairngorm.extended.commands
 			
 			var e:CairngormExtendedEvent = CairngormExtendedEvent(event);
 			
-			this.callback = e.callback;
+			this._callback = e.callback;
 		}
 		
 		public function result(data:Object):void
