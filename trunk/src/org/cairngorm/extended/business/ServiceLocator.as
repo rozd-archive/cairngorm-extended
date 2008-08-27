@@ -31,6 +31,15 @@ package org.cairngorm.extended.business
 			return instance;
 		}
 		
+		public function get endpoint():String
+		{
+			return this._endpoint;
+		}
+		public function set endpoint(value:String):void
+		{
+			this._endpoint = value;
+		}
+		
 		private var _destination:String;
 		[Bindable]
 		public function get destination():String
