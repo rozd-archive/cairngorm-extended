@@ -18,6 +18,11 @@ package org.cairngorm.extended.control
 			this.mode = mode;
 		}
 		
+		public function addEvent(event:CairngormExtendedEvent):void
+		{
+			this.events.push(event);
+		}
+		
 		override public function clone():Event
 		{
 			return new MultiCommandEvent(this.events, this.mode);
